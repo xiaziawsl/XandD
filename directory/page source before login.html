@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="format-detection" content="telephone=no">
+                <meta name="viewport" content="width=device-width initial-scale=1,user-scalable = 0">
+                <title>登录</title>
+        <link rel="stylesheet" href="/wap/css/common.css">
+        <link href="/widgets/photoSwipe/css/photoswipe.css" rel="stylesheet">
+        <link href="/widgets/photoSwipe/css/default-skin.css" rel="stylesheet">
+        <link href="/wap/new/normal/css/reset.css" rel="stylesheet">
+        <link href="/wap/new/normal/css/iconfont.css" rel="stylesheet">
+
+       <!--  <style type="text/css">
+            html{
+                -webkit-filter: grayscale(100%);
+                filter: grayscale(100%);
+                filter: gray;
+            }
+        </style> -->
+        
+        <link href="https://app.nwafu.edu.cn/wap/new/normal/css/login/index.css" rel="stylesheet">                <script src="/thirdparty/nifty/js/jquery.min.js"></script>
+                <script src="/thirdparty/vuejs/v2.1.10/vue.min.js"></script>
+        <script src="/wap/js/common.js"></script>
+        <script src="/js/face.js"></script>
+        <script src="/widgets/photoSwipe/js/photoswipe.min.js"></script>
+        <script src="/widgets/photoSwipe/js/photoswipe-ui-default.min.js"></script>
+                <script type="text/javascript">
+            (function (win, doc) {
+                function changeSize() {
+                    doc.documentElement.style.fontSize = 100 * doc.documentElement.clientWidth / 375 + 'px';
+                }
+                changeSize();
+                win.addEventListener('resize', changeSize, false);
+            })(window, document);
+        </script>
+            </head>
+    <body class="">
+                    <style>
+        @media (min-width: 1025px) {
+            body {
+                margin: 0 auto !important;
+                font-size: 14px;
+                width: 1025px;
+            }
+
+        }
+
+        body {
+            background: #f2f2f2;
+        }
+
+        #app {
+            background: #fff;
+        }
+    </style>
+
+    <div id="app" v-cloak>
+        <div class="header">
+            <div>
+                <img :src='"https://imgapp.nwafu.edu.cn/"+setting.school_logo' alt=""/>
+                <p>{{setting.school_name}}</p>
+            </div>
+        </div>
+        <div class="content">
+            <div><i class="icon iconfont icon-touxiang"></i>
+                <input type="text" :placeholder="setting.account_copy" v-model="username" autocomplete="off"/>
+            </div>
+            <div><i class="icon iconfont icon-mima" style=""></i>
+                <input type="password" :placeholder="setting.password_copy" v-model="password"
+                       autocomplete="off"/>
+            </div>
+        </div>
+        <div class="btn" @click='login()'>登 录</div>
+        <div class="footer" v-if="setting.login_remarks != undefined && setting.login_remarks != ''">
+            <h2><span></span>注意事项<span></span></h2>
+            <p v-html="setting.login_remarks"></p>
+        </div>
+        <div class="foot">
+            <p>版权所有&copy;{{setting.copyright}}</p>
+        </div>
+    </div>
+                    <script type="text/javascript">
+        var vm = new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    setting: {"backend_pic":"image\/7\/15471.png","school_name":"\u897f\u5317\u519c\u6797\u79d1\u6280\u5927\u5b66","school_logo":"image\/7\/15469.png","copyright":"2018 \u897f\u5317\u519c\u6797\u79d1\u6280\u5927\u5b66","account_copy":"\u8d26\u53f7","password_copy":"\u5bc6\u7801","login_remarks":"","login_error":"\u767b\u5f55\u5f02\u5e38\uff0c\u8bf7\u8054\u7cfb\u7ba1\u7406\u5458","weixin":"65","alipay":""},
+                    username: "",
+                    password: "",
+                    redirect_url: "https:\/\/app.nwafu.edu.cn\/ncov\/wap\/default\/index",
+                    locked: false
+                }
+            },
+            
+            methods: {
+                login: function () {
+                    if (this.username == '' || this.password == '') {
+                        wapalert('请填写提交信息');
+                        return false;
+                    }
+                    if (this.locked) {
+                        return false;
+                    }
+                    this.locked = true;
+                    $.ajax({
+                        type: "POST",
+                        cache: false,
+                        url: '/uc/wap/login/check',
+                        data: {
+                            username: vm.username,
+                            password: vm.password,
+                        },
+                        dataType: 'json',
+                        success: function (resp) {
+                            if (resp.e == '0') {
+                                window.location.href = vm.redirect_url;
+                            } else if (resp.e == '10016') {
+                                wapalert(resp.m);
+                            } else {
+                                wapalert(vm.setting.login_error || resp.m);
+                            }
+                            vm.locked = false;
+                        },
+                        error: function () {
+                            vm.locked = false;
+                        }
+                    });
+                }
+            }
+        });
+        Vue.nextTick(function () {
+            var height = $("#app").height();
+            var docheight = $(window).height();
+            var w = $(window).width();
+            if (w > 1024) {
+                var body = document.body;
+                body.style.width = docheight * 10 / 16 + 'px';
+
+            }
+            ;
+            $("#app").height(docheight);
+            if (docheight > height + 50) {
+                $(".foot").css("position", "fixed")
+            } else {
+                $(".foot").css("position", "inherit")
+            }
+            if (w > 1024) {
+                $("html").css("font-size", '140px');
+            }
+        })
+    </script>
+                <div id="gallery" class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="pswp__bg"></div>
+            <div class="pswp__scroll-wrap">
+                <div class="pswp__container">
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                </div>
+                <div class="pswp__ui pswp__ui--hidden">
+                    <div class="pswp__top-bar">
+                        <div class="pswp__counter"></div>
+                        <button class="pswp__button pswp__button--close"></button>
+                        <div class="pswp__preloader">
+                            <div class="pswp__preloader__icn">
+                                <div class="pswp__preloader__cut">
+                                    <div class="pswp__preloader__donut"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                        <div class="pswp__share-tooltip">
+                        </div>
+                    </div>
+                    <button class="pswp__button pswp__button--arrow--left"></button>
+                    <button class="pswp__button pswp__button--arrow--right"></button>
+                    <div class="pswp__caption">
+                        <div class="pswp__caption__center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
