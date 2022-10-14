@@ -1,0 +1,55 @@
+\documentclass[tp12]{ctexart}
+\usepackage{graphicx}
+
+\title{建模}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+% Errors in your code:
+% 1. "\maketitle" should be in the document environment.
+% 2. You should explicitly specify the unit of width.
+% 	 Correct: "[width=10cm]", "[width=300pt]"
+%    Incorrect: "[width=10]"
+%
+% ref: https://www.overleaf.com/learn/latex/Errors/Illegal_unit_of_measure_(pt_inserted)
+
+
+\begin{center}
+
+    \begin{tabular}{l l l l l l l l}
+    \hline
+    ~&第一次&第二次&第三次&第四次&第五次&平均值\\
+    \hline
+    直接分类建模&0.7736&0.7593&0.8393&0.8704&0.8214&0.8018\\
+    PCA降维建模&1&0.9815&0.9825&1&1&0.9928\\
+    LASSO稀疏化建模&1&0.8929&0.96307&0.9811&0.9464&0.9567\\
+    \hline
+    \end{tabular}
+
+\end{center}
+
+    \begin{figure}
+    \centering
+    % *******************************************************************
+    % Load a local image like this, "." indicates current directory
+    \includegraphics[width=10cm]{./filename.png}
+    % You can not load an external image without including new packages
+    % ref: https://tex.stackexchange.com/questions/5433/can-i-use-an-image-located-on-the-web-in-a-latex-document
+    % Search: "LaTeX load image web"
+    % *******************************************************************
+    
+    % *******************************************************************
+    % How to load an image on Overleaf
+    \includegraphics[width=10cm]{filename}
+    % ref: https://www.overleaf.com/learn/how-to/Including_images_on_Overleaf
+    % Search: "LaTeX load image Overleaf"
+    % *******************************************************************
+
+    \caption{Caption}
+    \label{}
+    \end{figure}
+
+
+\end{document}
