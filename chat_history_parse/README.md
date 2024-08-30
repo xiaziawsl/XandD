@@ -1,6 +1,6 @@
 # Chat History Parse
 
-The scripts are used to count the ocuurrence of certain words said by chat users in the chat history (in html form exported from Element Web).
+The scripts are used to count the occurrence of certain words said by chat users in the chat history (in html form exported from Element Web).
 
 ---
 
