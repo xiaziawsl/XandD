@@ -3,10 +3,26 @@
 The scripts are used to count the occurrence of certain words said by chat users in the chat history (in html form exported from Element Web).
 
 ---
+## Usage
+
+Directory tree:
+```
+├>src
+│ └─app.py
+├>data
+│ └>whatever.server.tld
+│   ├─messages1.html
+│   └─messages2.html
+└─README
+```
+
+```shell-session
+python3 src/app.py
+```
 
 ## Data Observation
 
-1. All the messages are contained within a `div` element with the class "mx_Export_EventWrapper".
+1. All the messages are contained within a `div` element with the class "mx_Export_EventWrapper", but other events also do. To distinguish them, check if there is a "mx_EventTile_content" class inside.
 2. Within a sequence of messages sent by one user and contained inside `<div class="mx_Export_EventWrapper">`, the `li` element of the first message has the class "mx_EventTile". Subsequent `li` elements have both "mx_EventTile" **and** "mx_EventTile_continuation" classes. 
 
     The first message format:
@@ -55,3 +71,5 @@ The scripts are used to count the occurrence of certain words said by chat users
         </li>
     </div>
     ```
+3. The username is contained in a div with class "mx_DisambiguatedProfile"
+
