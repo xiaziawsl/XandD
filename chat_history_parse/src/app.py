@@ -31,7 +31,10 @@ class Event:
 
 
 class Counter:
-    data = {"user1": {"I": 0, "YOU": 0}, "user0": {"I": 0, "YOU": 0}}
+    data = {
+        "user1": {"I": 0, "YOU": 0, "TOTAL": 0},
+        "user0": {"I": 0, "YOU": 0, "TOTAL": 0},
+    }
 
     def count(
         self,
@@ -45,6 +48,7 @@ class Counter:
 
     def update(self, event: Event):
         if event.sender:
+            self.data[event.sender]["TOTAL"] += 1
             I, YOU = self.count(event.content, event.sender)
             self.data[event.sender]["I"] += I
             self.data[event.sender]["YOU"] += YOU
