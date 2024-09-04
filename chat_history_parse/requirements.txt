@@ -1,0 +1,4 @@
+beautifulsoup4==4.12.3
+prettytable==3.11.0
+soupsieve==2.6
+wcwidth==0.2.13
